@@ -9,6 +9,7 @@ python = "^3.9"
 fastapi = "^0.75.0"
 uvicorn = {extras = ["standard"], version = "^0.17.6"}
 SQLAlchemy = "^1.4.32"
+Jinja2 = "^3.1.1"
 
 [tool.poetry.dev-dependencies]
 
