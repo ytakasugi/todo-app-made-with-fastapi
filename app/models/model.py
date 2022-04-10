@@ -6,11 +6,11 @@ from sqlalchemy.dialects.mysql import INTEGER, BOOLEAN
 
 import hashlib
 
-import db
+from app.db import Base
 
 SQLITE3_NAME = "./db.sqlite3"
 
-class User(db.Base):
+class User(Base):
     __tablename__ = 'user'
 
     id = Column(
@@ -32,7 +32,7 @@ class User(db.Base):
     def __str__(self):
         return str(self.id) + ':' + self.username
 
-class Task(db.Base):
+class Task(Base):
     __tablename__ = 'task'
     id = Column(
         'id',

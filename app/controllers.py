@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from starlette.templating import Jinja2Templates
 from starlette.requests import Request
 
-from app.database import db
-from app.database import models
+import db
+from app.models import model
 
 app = FastAPI(
     title='FastAPIでつくるtoDoアプリケーション',
@@ -18,8 +18,8 @@ def index(request: Request):
     return templates.TemplateResponse('index.html',{'request': request})
 
 def admin(request: Request):
-    user = db.session.query(models.User).filter(models.User.username == 'admin').first()
-    task = db.session.query(models.Task).filter(models.Task.user_id == user.id).all()
+    user = db.session.query(model.User).filter(model.User.username == 'admin').first()
+    task = db.session.query(model.Task).filter(model.Task.user_id == user.id).all()
     db.session.close()
  
     return templates.TemplateResponse('admin.html',
