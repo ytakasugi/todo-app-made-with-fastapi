@@ -1,28 +1,30 @@
-from app.models import model
-import db
+from datetime import datetime
+
+from models.model import SQLITE3_NAME, User, Task
+from db import Base, session, engine
 import os
 
 if __name__ == "__main__":
-    path = model.SQLITE3_NAME
+    path = SQLITE3_NAME
     if not os.path.isfile(path):
         # テーブルを作成する
-        db.Base.metadata.create_all(db.engine)
+        Base.metadata.create_all(engine)
 
     # サンプルユーザを作成
-    admin = model.User(username = 'admin', password = 'admin', mail = 'admin@example.com')
-    db.session.add(admin)
-    db.session.commit()
+    admin = User(username = 'admin', password = 'admin', mail = 'admin@example.com')
+    session.add(admin)
+    session.commit()
 
     # サンプルタスク
-    task = model.Task(
+    task = Task(
         user_id = admin.id,
         content = 'Rustを仕事で使いたい',
-        deadline = model.datetime(2021, 12, 25, 12, 00, 00),
+        deadline = datetime(2021, 12, 25, 12, 00, 00),
     )
     
     print(task)
-    db.session.add(task)
-    db.session.commit()
+    session.add(task)
+    session.commit()
 
     # セッションのクローズ
-    db.session.close()
+    session.close()
