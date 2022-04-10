@@ -1,7 +1,6 @@
-from datetime import datetime
-
-from models.model import SQLITE3_NAME, User, Task
-from db import Base, session, engine
+import imp
+from models import *
+from db import engine, session
 import os
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
-from app import urls
+from urls import app
 import uvicorn
 
 if __name__ == '__main__':
-    uvicorn.run(app = urls.app)
+    uvicorn.run(app = app)
