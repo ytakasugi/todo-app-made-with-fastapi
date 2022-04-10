@@ -1,4 +1,3 @@
-import imp
 from models import *
 from db import engine, session
 import os
