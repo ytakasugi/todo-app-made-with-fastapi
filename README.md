@@ -10,6 +10,13 @@
 
 ---
 
+### 文法
+
+* [Python3基礎文法](https://qiita.com/Fendo181/items/a934e4f94021115efb2e)
+* [【基礎一覧】Pythonの基本文法を全て解説してみた！【初心者】](https://suwaru.tokyo/%E3%80%90%E5%9F%BA%E7%A4%8E%E3%81%AE%E4%B8%80%E8%A6%A7%E3%80%91python%E3%81%AE%E5%9F%BA%E6%9C%AC%E6%96%87%E6%B3%95%E3%82%92%E8%A7%A3%E8%AA%AC%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%80%90%E5%88%9D/#anc_32)
+
+---
+
 ### SQLAlchemy
 
 * [SQLAlchemyの基本的な使い方](https://qiita.com/ariku/items/75799665acd09520bed2)
