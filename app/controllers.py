@@ -1,3 +1,8 @@
+from datetime import datetime, timedelta
+
+import hashlib
+import re
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
@@ -7,9 +12,7 @@ from starlette.status import HTTP_401_UNAUTHORIZED
 
 import db
 from models import User, Task
-
-import hashlib
-import re
+from my_calendar import MyCalendar
 
 # 任意の4~20の英数字を示す正規表現
 pattern = re.compile(r'\w{4,20}')
@@ -37,9 +40,11 @@ def admin(request: Request, credentials: HTTPBasicCredentials = Depends(security
     username = credentials.username
     password = hashlib.md5(credentials.password.encode()).hexdigest()
 
+    today = datetime.now()
+    next_week = today + timedelta(days = 7)
+
     # データベースからユーザ名が一致するデータを取得
     user = db.session.query(User).filter(User.username == username).first()
-    task = db.session.query(Task).filter(Task.user_id == user.id).all() if user is not None else []
     db.session.close()
 
     # 該当ユーザがいない場合
@@ -51,13 +56,29 @@ def admin(request: Request, credentials: HTTPBasicCredentials = Depends(security
             headers={"WWW-Authenticate": "Basic"},
         )
 
+    task = db.session.query(Task).filter(Task.user_id == user.id).all()
+    db.session.close()
+
+    # カレンダーをHTML形式で取得
+    # 予定がある日付をキーとして渡す
+    calendar = MyCalendar(username, {t.deadline.strftime('%Y%m%d'): t.done for t in task}) 
+    calendar = calendar.formatyear(today.year, 4)
+
+    # 直近のタスクだけでいいので、リストを書き換える
+    task = [t for t in task if today <= t.deadline <= next_week]
+    # 直近の予定リンク
+    links = [t.deadline.strftime('/todo/'+username+'/%Y/%m/%d') for t in task] 
+
+
     # 特に問題がなければ管理者ページへ
     return templates.TemplateResponse(
         'admin.html',
         {
             'request': request,
             'user': user,
-            'task': task
+            'task': task,
+            'links': links,
+            'calendar': calendar
         }
     )
 
