@@ -1,6 +1,7 @@
-# 文法確認用
+import locale
 
-## 空のリストを作成
-v = []
+print(locale.getlocale(locale.LC_TIME))
 
+locale.setlocale(locale.LC_TIME, 'C.UTF-8')
 
+print(locale.getlocale(locale.LC_TIME))

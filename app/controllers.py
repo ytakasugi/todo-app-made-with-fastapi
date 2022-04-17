@@ -45,6 +45,7 @@ def admin(request: Request, credentials: HTTPBasicCredentials = Depends(security
 
     # データベースからユーザ名が一致するデータを取得
     user = db.session.query(User).filter(User.username == username).first()
+    #task = db.session.query(Task).filter(Task.user_id == user.id).all()
     db.session.close()
 
     # 該当ユーザがいない場合
@@ -61,11 +62,11 @@ def admin(request: Request, credentials: HTTPBasicCredentials = Depends(security
 
     # カレンダーをHTML形式で取得
     # 予定がある日付をキーとして渡す
-    calendar = MyCalendar(username, {t.deadline.strftime('%Y%m%d'): t.done for t in task}) 
-    calendar = calendar.formatyear(today.year, 4)
+    cal = MyCalendar(username, {t.deadline.strftime('%Y%m%d'): t.done for t in task})
+    cal = cal.formatyear(today.year, 4)
 
     # 直近のタスクだけでいいので、リストを書き換える
-    task = [t for t in task if today <= t.deadline <= next_week]
+    task =  [t for t in task if today <= t.deadline <= next_week]
     # 直近の予定リンク
     links = [t.deadline.strftime('/todo/'+username+'/%Y/%m/%d') for t in task] 
 
@@ -78,7 +79,7 @@ def admin(request: Request, credentials: HTTPBasicCredentials = Depends(security
             'user': user,
             'task': task,
             'links': links,
-            'calendar': calendar
+            'calendar': cal
         }
     )
 

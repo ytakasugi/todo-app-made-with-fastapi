@@ -21,7 +21,7 @@ class User(Base):
     )
     username = Column('username', String(256))
     password = Column('password', String(256))
-    mail = Column('mali', String(256))
+    mail = Column('mail', String(256))
 
     def __init__(self, username, password, mail):
         self.username = username
