@@ -17,7 +17,7 @@ if __name__ == "__main__":
     task = Task(
         user_id = admin.id,
         content = 'Rustを仕事で使いたい',
-        deadline = datetime(2022, 4, 17, 12, 00, 00),
+        deadline = datetime.now(),
     )
     
     print(task)

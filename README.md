@@ -27,4 +27,4 @@
 ### WSL2
 
 * [WSL2内で立ち上げたサーバにWindows側からlocalhostで接続する](https://qiita.com/snaka/items/a8eee4cfc8f7d733e6ab)
-* [WSL2が出たから入れてみたけど、ネットワークが設定されないWSL2が出たから入れてみたけど、ネットワークが設定されない](https://messyshow.com/wsl2-networking/)
+* [WSL2が出たから入れてみたけど、ネットワークが設定されない](https://messyshow.com/wsl2-networking/)
